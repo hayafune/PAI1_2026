@@ -48,7 +48,7 @@ class DigitCNN:
         return x.reshape(n, h2, 2, w2, 2, c).max(axis=(2, 4))
 
     def logits(self, x):
-        """xをCNNおよび全結合層に通した結果を返す"""
+        """xをCNNおよび全結合層に通した結果を返す。"""
         x = np.asarray(x, dtype=np.float32)
         if x.ndim == 3: # チャンネルの次元がない場合
             x = x[..., None]
@@ -61,7 +61,7 @@ class DigitCNN:
         return x @ self.w4 + self.b4 # 全結合層。形状は(N, 9)
 
     def predict_proba(self, x):
-        """xをCNN+全結合層に通した結果のSoftmax、つまり各数字の確率を返す"""
+        """xをCNN+全結合層に通した結果のSoftmax、つまり各数字の確率を返す。"""
         z = self.logits(x) # CNN+全結合層
         z = z - z.max(axis=1, keepdims=True)
         e = np.exp(z)
